@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    z-index: 100;
+}
+
+nav {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    font-size: 20px;
+}
+
+.Title {
+    position: absolute;
+    left: 46.8%;
+    top: 1%;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+}
+
+.tabs {
+    display: flex;
+    padding: 0 220px;
+}
+
+.tab {
+    display: flex;
+    cursor: pointer;
+    padding: 0 40px;
+    text-decoration: none;
+    color: #000;
+}
+
+footer {
+    background-color: #333;
+    z-index: 100;
+    color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Copyr {
+    padding: 0 10px;
+}
+
+.PhoneCon {
+    padding: 0 10px;
+}
+
+h2 {
+    margin: 10px;
+    color: #333;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.about-container p {
+    line-height: 1.6;
+}
+
+.about-container h3 {
+    margin-top: 20px;
+}
+
+.about-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-container li {
+    margin-bottom: 10px;
+}
+

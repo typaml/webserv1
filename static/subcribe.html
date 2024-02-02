@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/subcribe.css">
+  <title>Подписка</title>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <div class="tabs">
+        <a href="/" class="tab">Главная</a>
+        <a href="/static/audiopage.html" class="tab">Аудиокниги</a>
+        <a href="/static/about.html" class="tab">О нас</a>
+      </div>
+    </ul>
+    <div class="Title">
+      BOOKS
+    </div>
+    <ul>
+      <div class="tabs">
+        <a href="/static/subcribe.html" class="tab">Подписка</a>
+        <a href="/static/profile.html" class="tab">Профиль</a>
+        <a href="/static/username.html" class="tab">Войти</a>
+      </div>
+    </ul>
+  </nav>
+</header>
+
+<div class="subscription-container">
+  <div class="subscription-widget" id="basic-widget">
+    <h3>Базовая подписка</h3>
+    <p>Доступ к базовому контенту</p>
+    <button onclick="activateSubscription('Базовая подписка')">Активировать подписку</button>
+  </div>
+
+  <div class="subscription-widget" id="standard-widget">
+    <h3>Стандартная подписка</h3>
+    <p>Доступ ко всему контенту</p>
+    <button onclick="activateSubscription('Стандартная подписка')">Активировать подписку</button>
+  </div>
+
+  <div class="subscription-widget" id="premium-widget">
+    <h3>Премиум подписка</h3>
+    <p>Доступ ко всему контенту + эксклюзивный контент</p>
+    <button onclick="activateSubscription('Премиум подписка')">Активировать подписку</button>
+  </div>
+</div>
+
+<footer>
+  <div class="Copyr">
+    <p>&copy; 2023 MrPamCompany. Все права защищены.</p>
+  </div>
+  <div class="PhoneCon">
+    <p>8-981-953-22-98</p>
+  </div>
+</footer>
+
+<script>
+  function activateSubscription(subscriptionType) {
+    alert(`Подписка "${subscriptionType}" активирована. Оплата в размере 777777$ принята. Хорошего отдыха!`);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/username.css">
+    <title>Авторизация</title>
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Форма для регистрации -->
+    <div id="registrationForm" style="display: none;">
+        <h2>Регистрация</h2>
+        <form id="registerForm">
+            <label for="username">Логин:</label>
+            <input type="text" id="registerUsername" name="registerUsername" required>
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="registerPassword" name="registerPassword" required>
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <!-- Форма для входа -->
+    <div id="loginForm" style="display: block;">
+        <h2>Вход</h2>
+        <form id="loginForm">
+            <label for="loginUsername">Логин:</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+
+            <label for="loginPassword">Пароль:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+    <button class="changeLA" >Регистрация</button>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    var registrationForm = document.forms['registerForm'];
+    var registerFormID = document.getElementById('registrationForm')
+    var loginFormID = document.getElementById('loginForm')
+    var loginForm = document.forms['loginForm'];
+    var changeLA = document.querySelector('.changeLA')
+    changeLA.addEventListener('click', function() {
+        if (loginFormID.style.display === 'block') {
+        loginFormID.style.display = 'none';
+        registerFormID.style.display = 'block';
+        changeLA.textContent = 'Вход';
+    } else {
+        loginFormID.style.display = 'block';
+        registerFormID.style.display = 'none';
+        changeLA.textContent = 'Регистрация';
+    }
+    })
+    
+    // Обработчик события для формы регистрации
+    registrationForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var registerFormData = new FormData(registrationForm);
+        registerUser(registerFormData);
+    });
+
+    // Обработчик события для формы входа
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var loginFormData = new FormData(loginForm);
+        loginUser(loginFormData);
+        
+    });
+
+    function registerUser(formData) {
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(formData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Registration failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Обработка успешной регистрации
+            alert("Отлично! Вы успешно зарегистрировались!");
+            console.log('User registered:', data);
+            loginFormID.style.display = 'block';
+            registerFormID.style.display = 'none';
+            changeLA.textContent = 'Регистрация';
+            
+        })
+        .catch(error => {
+            // Обработка ошибок регистрации
+            console.error('Registration error:', error);
+            alert("Такой пользователь уже есть");
+        });
+    }
+
+
+    function loginUser(formData) {
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(formData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Обработка успешного входа
+            alert("Успех! Вы вошли!");
+            console.log('User logged in:', data);
+            window.location.href = "/";
+        })
+        .catch(error => {
+            // Обработка ошибок входа
+            console.error('Login error:', error);
+            alert("Неправильный логин или пароль");
+        });
+    }
+</script>
+
+</body>
+</html>

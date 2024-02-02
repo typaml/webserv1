@@ -1,0 +1,233 @@
+/* audio.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header{
+    z-index: 100;
+}
+nav {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    font-size: 20px;
+    
+}
+
+.Title{
+    position: absolute;
+    left: 46.8%;
+    top: 1%;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+}
+.tabs {
+    display: flex;
+    padding: 0 220px;
+}
+
+.tab {
+    display: flex;
+    cursor: pointer;
+    padding: 0 40px;
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    color: #000; /* Цвет текста ссылок */
+}
+
+
+footer {
+    background-color: #333;
+    z-index: 100;
+    color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Copyr{
+    padding: 0 10px;
+}
+.PhoneCon{
+    padding: 0 10px;
+}
+
+/* Основной контент сайт */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 8px;
+}
+
+.search-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ddd;
+    cursor: pointer;
+}
+.search-results {
+    /* Стили для отображения результатов поиска */
+}
+
+.widget-container {
+    display: grid;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    gap: 300px 200px;
+    grid-template-columns: 1fr 1fr;
+    padding: 180px;
+    z-index: 0;
+}
+
+.widget {
+    position: relative;
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.widget:hover {
+    transform: scale(1.05);
+    filter: brightness(0.8);
+}
+
+.widget-image {
+    max-width: 100%;
+    height: 400px;
+    width: 400px;
+    padding: 30px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+
+}
+
+.widget-image:hover {
+    filter: brightness(1);
+}
+
+.widget-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.widget-content h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.widget-content p {
+    margin: 10px 0;
+    color: #555;
+}
+
+
+/* Стилизация основной таблицы */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Стилизация основной таблицы */
+
+/* Задание фона для четных строк */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Задание фона для нечетных строк при наведении */
+table tr:hover {
+    background-color: #e5e5e5;
+}
+
+/* Стилизация заголовков столбцов */
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+}
+
+/* Чередование цветов строк для лучшей читаемости */
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* Задаем стили для первой строки (заголовка) */
+th {
+    background-color: rgb(212, 156, 36);
+    color: white;
+}
+
+/* Строки с закругленными углами */
+tr {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Скрываем строку с ID (если она есть) */
+tr#hidden-row {
+    display: none;
+}
+
+/* Стилизация ячеек с Да/Нет */
+td.yes {
+    color: green;
+}
+
+td.no {
+    color: red;
+}
+
+
+button.removeButton {
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #35dc4b; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+}
+
+button.removeButton:hover {
+    background-color: #28c823; /* Измененный цвет фона при наведении */
+}
+

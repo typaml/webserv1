@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/audio.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аудиокниги</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <div class="tabs">
+                <a href="/" class="tab">Главная</a>
+                <a href="/static/audiopage.html" class="tab">Аудиокниги</a>
+                <a href="/static/about.html" class="tab">О нас</a>
+            </div>
+        </ul>
+        <div class="Title">
+            BOOKS
+        </div>
+        <ul>
+            <div class="tabs">
+                <a href="/static/subcribe.html" class="tab">Подписка</a>
+                <a href="/static/profile.html" class="tab">Профиль</a>
+                <a href="/static/username.html" class="tab">Войти</a>
+            </div>
+        </ul>
+    </nav>
+</header>
+    
+
+<main>
+    <div class="search-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск...">
+            <button class="search-button"><img src="/static/search.jpg" alt=""></button>
+    </div>
+    <div class="widget-container" id="widgetContainer">
+        <button class="widget top-left">
+            <img class="widget-image" src="/static/martin.avif" alt="Image 1">
+            <div class="widget-content">
+                <h2>Бестселлер</h2>
+                <p>Самые популярные книги в мире.</p>
+            </div>
+        </button>
+    
+        <button class="widget top-right">
+            <img class="widget-image" src="/static/bestsel2.jpg" alt="Image 2">
+            <div class="widget-content">
+                <h2>Жанры</h2>
+                <p>Все жанры, все книги.</p>
+            </div>
+        </button>
+    
+        <button class="widget bottom-left">
+            <img class="widget-image" src="/static/authors.jpg" alt="Image 3">
+            <div class="widget-content">
+                <h2>Авторы</h2>
+                <p>Самые популярные авторы и их шедевры.</p>
+            </div>
+        </button>
+    
+        <button class="widget bottom-right">
+            <img class="widget-image" src="/static/popular.jpg" alt="Image 4">
+            <div class="widget-content">
+                <h2>Популярное</h2>
+                <p>Самые популярные бесплатные книги в нашей библиотеке</p>
+            </div>
+        </button>
+    </div>
+    <div class="search-results" id="searchResultsTable" style="display: none;">
+        <!-- Таблица для отображения результатов поиска и данных из базы данных -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID книги</th>
+                    <th>Автор</th>
+                    <th>Название</th>
+                    <th>Жанры</th>
+                    <th>Краткое описание</th>
+                    <th>Год публикации</th>
+                    <th>Язык</th>
+                    <th>Бестселлер</th>
+                    <th>Стоимость</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="booksDataBody">
+        <td><button class="removeButton" onclick="removeFromFavorites(${book.ID})">Удалить из избранного</button></td>              
+                <!-- Здесь будут отображаться данные из таблицы books -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <div class="Copyr">
+        <p>&copy; 2023 MrPamCompany. Все права защищены.</p>
+    </div>
+    <div class="PhoneCon">
+        <p>8-981-953-22-98</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var searchInput = document.getElementById('searchInput');
+            var widgetContainer = document.getElementById('widgetContainer');
+            var searchResultsTable = document.getElementById('searchResultsTable');
+            var searchButton = document.querySelector('.search-button');
+            var widgetButton1 = document.querySelector('.top-left');
+            var widgetButton2 = document.querySelector('.top-right')
+            var widgetButton3 = document.querySelector('.bottom-left')
+            var widgetButton4 = document.querySelector('.bottom-right')
+            // Обработчик события для поля ввода поиска
+            searchInput.addEventListener('input', function(){
+                var searchTerm = searchInput.value.trim().toLowerCase();
+                // Проверяем условия
+                if (searchTerm === '') {
+                    // Показываем виджет-контейнер и скрываем таблицу, если строка поиска пуста
+                    widgetContainer.style.display = 'grid';
+                    searchResultsTable.style.display = 'none';
+                }
+            });
+            widgetButton3.addEventListener('click', function() {
+                widget3Func()
+            })
+            widgetButton4.addEventListener('click', function() {
+                widget4Func()
+            })
+            widgetButton2.addEventListener('click', function() {
+                widget2Func();
+            });
+            //Обрабочтик виджета верхний левый
+            widgetButton1.addEventListener('click', function() {
+                widget1Func()
+            });
+            // Обработчик события для кнопки поиска
+            searchButton.addEventListener('click', function () {
+                var searchTerm = searchInput.value.trim().toLowerCase();
+                // Проверяем условия
+                if (searchTerm === '') {
+                    // Скрываем виджет-контейнер и отображаем таблицу, если строка поиска не пуста
+                    widget2Func();
+                } else {
+                    searchBooksData(searchTerm);
+                }
+            });
+        
+        
+            function searchBooksData(searchTerm) {
+                $.get('/searchBooks?query=' + encodeURIComponent(searchTerm), function (data) {
+                    // Очищаем текущие данные в таблице
+                    $('#searchResultsTable tbody').empty();
+        
+                    // Добавляем новые данные в таблицу
+                    data.forEach(function (book) {
+                        var row = '<tr><td>' + book.ID  + '</td><td>' + book.Author + '</td><td>' + book.Title + '</td><td>' + book.Genres +'</td><td>' + book.Description + '</td><td>' + book.Year_of_Publication + '</td><td>' + book.Language + '</td><td>' +  book.Is_Bestseller + '</td><td>'+book.Pricebook+'</td><td><button class="removeButton" onclick="addToFavorites('+book.ID+')">Добавить в избранное</button></td></tr>';
+                        $('#searchResultsTable tbody').append(row);
+                    });
+        
+                    // Показываем таблицу с результатами поиска
+                    widgetContainer.style.display = 'none';
+                    searchResultsTable.style.display = 'table';
+                });
+            }
+            function widget1Func() {
+                $.get('/widget1func', function (data) {
+                    // Очищаем текущие данные в таблице
+                    $('#searchResultsTable tbody').empty();
+        
+                    // Добавляем новые данные в таблицу
+                    data.forEach(function (book) {
+                        var row = '<tr><td>' + book.ID  + '</td><td>' + book.Author + '</td><td>' + book.Title + '</td><td>' + book.Genres +'</td><td>' + book.Description + '</td><td>' + book.Year_of_Publication + '</td><td>' + book.Language + '</td><td>' +  book.Is_Bestseller + '</td><td>'+book.Pricebook+'</td><td><button class="removeButton" onclick="addToFavorites('+book.ID+')">Добавить в избранное</button></td></tr>';
+                        $('#searchResultsTable tbody').append(row);
+                    });
+        
+                    // Показываем таблицу с результатами поиска
+                    widgetContainer.style.display = 'none';
+                    searchResultsTable.style.display = 'table';
+                });
+            }
+            function widget2Func() {
+                $.get('/widget2func', function (data) {
+                   // Очищаем текущие данные в таблице
+                   $('#searchResultsTable tbody').empty();
+        
+                // Добавляем новые данные в таблицу
+                data.forEach(function (book) {
+                    var row = '<tr><td>' + book.ID  + '</td><td>' + book.Author + '</td><td>' + book.Title + '</td><td>' + book.Genres +'</td><td>' + book.Description + '</td><td>' + book.Year_of_Publication + '</td><td>' + book.Language + '</td><td>' +  book.Is_Bestseller + '</td><td>'+book.Pricebook+'</td><td><button class="removeButton" onclick="addToFavorites('+book.ID+')">Добавить в избранное</button></td></tr>';
+                    $('#searchResultsTable tbody').append(row);
+                });
+
+                // Показываем таблицу с результатами поиска
+                widgetContainer.style.display = 'none';
+                searchResultsTable.style.display = 'table';
+                });
+            }
+            function widget3Func() {
+                $.get('/widget3func', function (data) {
+                    // Очищаем текущие данные в таблице
+                    $('#searchResultsTable tbody').empty();
+        
+                    // Добавляем новые данные в таблицу
+                    data.forEach(function (book) {
+                        var row = '<tr><td>' + book.ID  + '</td><td>' + book.Author + '</td><td>' + book.Title + '</td><td>' + book.Genres +'</td><td>' + book.Description + '</td><td>' + book.Year_of_Publication + '</td><td>' + book.Language + '</td><td>' +  book.Is_Bestseller + '</td><td>'+book.Pricebook+'</td><td><button class="removeButton" onclick="addToFavorites('+book.ID+')">Добавить в избранное</button></td></tr>';
+                        $('#searchResultsTable tbody').append(row);
+                    });
+        
+                    // Показываем таблицу с результатами поиска
+                    widgetContainer.style.display = 'none';
+                    searchResultsTable.style.display = 'table';
+                });
+            }
+            function widget4Func() {
+                $.get('/widget4func', function (data) {
+                    // Очищаем текущие данные в таблице
+                    $('#searchResultsTable tbody').empty();
+        
+                    // Добавляем новые данные в таблицу
+                    data.forEach(function (book) {
+                        var row = '<tr><td>' + book.ID  + '</td><td>' + book.Author + '</td><td>' + book.Title + '</td><td>' + book.Genres +'</td><td>' + book.Description + '</td><td>' + book.Year_of_Publication + '</td><td>' + book.Language + '</td><td>' +  book.Is_Bestseller + '</td><td>'+book.Pricebook+'</td><td><button class="removeButton" onclick="addToFavorites('+book.ID+')">Добавить в избранное</button></td></tr>';
+                        $('#searchResultsTable tbody').append(row);
+                    });
+        
+                    // Показываем таблицу с результатами поиска
+                    widgetContainer.style.display = 'none';
+                    searchResultsTable.style.display = 'table';
+                });
+            }
+        });
+
+        function addToFavorites(bookID) {
+    // Проверка, авторизован ли пользователь
+    fetch('/getFavorites')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Отправка запроса на добавление в избранное
+            fetch('/addToFavorites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    bookID: bookID,
+                }),
+            })
+                .then(response => response.json())
+                .then(result => {
+                    alert('Книга добавлена в избранное!');
+                })
+                .catch(error => {
+                    console.error('Error adding to favorites:', error);
+                    alert('Ошибка при добавлении в избранное. Пожалуйста, авторизуйтесь.');
+                });
+        })
+        .catch(error => {
+            console.error('Error checking authentication:', error);
+            alert('Пожалуйста, авторизуйтесь, чтобы добавить в избранное.');
+        });
+}
+
+        </script>
+        
+
+</body>
+
+
+</html>

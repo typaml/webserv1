@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    z-index: 100;
+}
+
+nav {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    font-size: 20px;
+}
+
+.Title {
+    position: absolute;
+    left: 46.8%;
+    top: 1%;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+}
+
+.tabs {
+    display: flex;
+    padding: 0 220px;
+}
+
+.tab {
+    display: flex;
+    cursor: pointer;
+    padding: 0 40px;
+    text-decoration: none;
+    color: #000;
+}
+
+footer {
+    background-color: #333;
+    z-index: 100;
+    color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Copyr {
+    padding: 0 10px;
+}
+
+.PhoneCon {
+    padding: 0 10px;
+}
+
+.subscription-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 200px 20px;
+    color: black;
+}
+
+.subscription-widget {
+    background: linear-gradient(to right, #ff8c00, #ffaf49);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 100px;
+    margin: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    color: white;
+}
+
+.subscription-widget button {
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.subscription-widget button:hover {
+    background-color: #999;
+}
+.subscription-widget:hover{
+    transform: scale(1.1);
+}
+

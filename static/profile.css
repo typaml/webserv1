@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header{
+    z-index: 100;
+}
+nav {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    font-size: 20px;
+    
+}
+
+.Title{
+    position: absolute;
+    left: 46.8%;
+    top: 1%;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+}
+.tabs {
+    display: flex;
+    padding: 0 220px;
+}
+
+.tab {
+    display: flex;
+    cursor: pointer;
+    padding: 0 40px;
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    color: #000; /* Цвет текста ссылок */
+}
+
+
+footer {
+    background-color: #333;
+    z-index: 100;
+    color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Copyr{
+    padding: 0 10px;
+}
+.PhoneCon{
+    padding: 0 10px;
+}
+h2{
+    margin: 20px;
+    color: #333;
+}
+
+#searchResultsTable {
+    margin-top: 20px;
+    margin: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #fff;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#logoutButton {
+    background-color: #e71d1d; /* Цвет фона */
+    color: white; /* Цвет текста */
+    padding: 10px 20px; /* Отступы вокруг текста */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    position: fixed;
+    bottom: 60px; /* Вы можете изменить значение в соответствии с вашими предпочтениями */
+    right: 20px;
+    transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+}
+
+#logoutButton:hover {
+    background-color: rgb(161, 30, 30); /* Цвет фона при наведении */
+}

@@ -1,0 +1,150 @@
+/* style.css */
+
+
+/* http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static")))) */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+nav {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    font-size: 20px;
+    
+}
+.Title{
+    position: absolute;
+    left: 46.8%;
+    top: 1%;
+    font-size: 34px;
+    font-weight: bold;
+    display: flex;
+}
+
+.tabs {
+    display: flex;
+    padding: 0 220px;
+}
+
+.tab {
+    display: flex;
+    cursor: pointer;
+    padding: 0 40px;
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    color: #000; /* Цвет текста ссылок */
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Copyr{
+    padding: 0 10px;
+}
+.PhoneCon{
+    padding: 0 10px;
+}
+.content{
+}
+
+.TextTitlePG1{
+    color:white;
+    position: absolute;
+    bottom: 18%;
+    left: 42%;
+    padding: 10px; /* Отступы текста */
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.TextPG1{
+    color:white;
+    position: absolute;
+    bottom: 0;
+    left:38%;
+    padding: 10px; /* Отступы текста */
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.image-container {
+    position: relative;
+    height: 36vh; /* Устанавливаем высоту контейнера в 1/3 высоты экрана */
+    overflow: hidden; /* Скрыть возможное переполнение изображения */
+    
+}
+.image-container img {
+    max-width: 100%; /* Сделать изображение максимально по ширине */
+    width: 100%; /* Сделать изображение 100% по ширине внутри контейнера */
+    height: 100%; /* Заполнить контейнер по высоте */
+    object-fit: cover; /* Сохранить пропорции и обрезать изображение, чтобы оно полностью покрывало контейнер */
+}
+
+.image-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Высота градиента, можно регулировать */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35));
+}
+
+.TextBottom1{
+    position: absolute;
+    left:30.4%;
+    text-align: center;
+    padding: 15px;
+    bottom: 48%;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.image-row {
+    flex-direction: row;
+    position: absolute;
+    left: 19%;
+    bottom: 11%;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Если изображений больше, они переносятся на следующую строку */
+}
+
+.image-item {
+    margin-bottom: 40px;
+    margin-left: 40px;
+    text-align: center;
+}
+
+.image-item img {
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.caption {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7));
+    width: 100%;
+}

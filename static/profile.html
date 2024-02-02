@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/profile.css">
+    <title>Мой профиль</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <div class="tabs">
+                    <a href="/" class="tab">Главная</a>
+                    <a href="/static/audiopage.html" class="tab">Аудиокниги</a>
+                    <a href="/static/about.html" class="tab">О нас</a>
+                </div>
+            </ul>
+            <div class="Title">
+                BOOKS
+            </div>
+            <ul>
+                <div class="tabs">
+                    <a href="/static/subcribe.html" class="tab">Подписка</a>
+                    <a href="/static/profile.html" class="tab">Профиль</a>
+                    <a href="/static/username.html" class="tab">Войти</a>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <h2>Избранное</h2>
+    <div class="search-results" id="searchResultsTable" style="display: block;">
+        <!-- Таблица для отображения результатов поиска и данных из базы данных -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID книги</th>
+                    <th>Автор</th>
+                    <th>Название</th>
+                    <th>Жанры</th>
+                    <th>Краткое описание</th>
+                    <th>Год публикации</th>
+                    <th>Язык</th>
+                    <th>Бестселлер</th>
+                    <th>Стоимость</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="favorite-books">
+            </tbody>
+        </table>
+    </div>
+        <!-- Добавьте кнопку выхода в ваш HTML -->
+    <button id="logoutButton" onclick="handleLogout()">Выйти</button>
+
+    <!-- ... Ваш текущий код ... -->
+
+<footer>
+    <div class="Copyr">
+        <p>&copy; 2023 MrPamCompany. Все права защищены.</p>
+    </div>
+    <div class="PhoneCon">
+        <p>8-981-953-22-98</p>
+    </div>
+</footer>
+</body>
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Выполнение запроса на получение избранных книг
+    fetch('/getFavorites')
+        .then(response => response.json())
+        .then(data => {
+            // Обработка полученных данных и отображение на странице
+            const favoriteBooksContainer = document.getElementById('favorite-books');
+
+            data.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.ID}</td>
+                    <td>${book.Author}</td>
+                    <td>${book.Title}</td>
+                    <td>${book.Genres}</td>
+                    <td>${book.Description}</td>
+                    <td>${book.Year_of_Publication}</td>
+                    <td>${book.Language}</td>
+                    <td>${book.Is_Bestseller}</td>
+                    <td>${book.Pricebook}</td>
+                    <td><button class="remove-favorite" data-book-id="${book.ID}">Удалить из избранного</button></td>
+                `;
+                favoriteBooksContainer.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching favorites:', error));
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', handleLogout);
+    }
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-favorite')) {
+            const bookId = event.target.getAttribute('data-book-id');
+            removeFavorite(bookId);
+        }
+    });
+});
+
+// Добавьте функцию для обработки выхода
+function handleLogout() {
+    // Отправка запроса на сервер для выхода
+    fetch('/logout')
+        .then(response => {
+            if (response.ok) {
+                // Если выход выполнен успешно, перезагрузите страницу
+                window.location.reload();
+                window.location.href = "/";
+            } else {
+                console.error('Error logging out:', response.statusText);
+                alert('Ошибка при выходе. Пожалуйста, попробуйте еще раз.');
+            }
+        })
+        .catch(error => {
+            console.error('Error logging out:', error);
+            alert('Ошибка при выходе. Пожалуйста, попробуйте еще раз.');
+        });
+}
+
+// Функция для удаления избранной книги
+function removeFavorite(bookId) {
+    // Отправка запроса на сервер для удаления из избранного
+    fetch(`/removeFromFavorites?bookId=${bookId}`, { method: 'POST' })
+        .then(response => {
+            if (response.ok) {
+                // Обновление списка избранных после удаления
+                window.location.reload();
+            } else {
+                console.error('Error removing from favorites:', response.statusText);
+                alert('Ошибка при удалении из избранного. Пожалуйста, попробуйте еще раз.');
+            }
+        })
+        .catch(error => {
+            console.error('Error removing from favorites:', error);
+            alert('Ошибка при удалении из избранного. Пожалуйста, попробуйте еще раз.');
+        });
+}
+</script>
+</html>
